@@ -9,11 +9,8 @@ export default (router, io) => {
   const apiRouter = new Router();
   apiRouter
     .get('/coordinates', (ctx) => {
-      // eslint-disable-next-line no-shadow
-      const { coordinates } = state;
-      ctx.body = coordinates;
+      ctx.body = state.coordinates;
       ctx.status = 301;
-      io.emit('allCoordinates', coordinates);
     })
     .post('/coordinates', (ctx) => {
       // eslint-disable-next-line no-shadow
