@@ -1,7 +1,7 @@
 import React from 'react';
-import _ from 'lodash';
+import { shuffle } from 'lodash';
 import MyGoogle from './MyGoogle';
-import constants from '../utils/constants';
+import { countOfMarkers, delay } from '../utils/constants';
 import MyYandex from './MyYandex';
 
 export default class App extends React.PureComponent {
@@ -14,16 +14,15 @@ export default class App extends React.PureComponent {
 
   componentDidMount() {
     const { store } = this.props;
-    //console.log(store);
-    const interval = setInterval(() => {
-      const { markersCount, markersList } = this.state;
-      const randomed = _.shuffle(store);
-      const coord = randomed[markersCount];
-      //console.log(this.state.markersList);
-      this.setState({ markersList: [...markersList, coord], markersCount: markersCount + 1 });
-      if (markersCount > constants.countOfMarkers) clearInterval(interval);
 
-    }, constants.delay());
+    const interval = setInterval(() => {
+      console.log('in', store);
+      const { markersCount, markersList } = this.state;
+      if (markersCount + 1 >= countOfMarkers) clearInterval(interval);
+      const randomed = shuffle(store);
+      const coord = randomed[markersCount];
+      this.setState({ markersList: [...markersList, coord], markersCount: markersCount + 1 });
+    }, delay);
   }
 
 
@@ -34,7 +33,7 @@ export default class App extends React.PureComponent {
   }
 
   render() {
-    const { map } = this.state;
+    const { map, markersList } = this.state;
     const buttonStyle = {
       position: 'absolute',
       right: '5vw',
@@ -58,8 +57,8 @@ export default class App extends React.PureComponent {
         </h2>
         {button}
         { map === 'Google'
-          ? <MyGoogle positions={this.state.markersList} isMarkerShown />
-          : <MyYandex positions={this.state.markersList} />
+          ? <MyGoogle positions={markersList} isMarkerShown />
+          : <MyYandex positions={markersList} />
     }
       </>
     );

@@ -1,18 +1,13 @@
 import axios from 'axios';
-import { countries } from './constants';
+import { shuffle } from 'lodash';
+import { countries, token, cors } from './constants';
 import getCities from './getCities';
-import getCoordinates from './getCoordinates';
-import getRandomCoordinates from './getRandomCoordinates';
-import { sendCoordinate } from './queries';
-
-const token = '36681ad836681ad836681ad8a536027c113366836681ad86ab815febfad14433ab16462';
-const cors = 'https://cors-anywhere.herokuapp.com/';
-const getRandomFloat = (min, max) => Math.round(Math.random() * (max - min) + min);
-const index = getRandomFloat(1, countries.length - 1);
-const id = countries[index];
-const citiesUrl = `${cors}https://api.vk.com/method/database.getCities?access_token=${token}&v=5.5&need_all=1&count=15&country_id=${id}`;
+import normalize from './normalize';
 
 export default () => {
+  const randomCountryId = shuffle(countries)[0];
+  const citiesUrl = `${cors}https://api.vk.com/method/database.getCities?access_token=${token}&v=5.5&need_all=1&count=15&country_id=${randomCountryId}`;
+
   axios.get(citiesUrl)
     .then((response) => {
       const cities = getCities(response);
@@ -22,8 +17,8 @@ export default () => {
       });
       axios.all(requests)
         .then((data) => {
-          const coord = getCoordinates(data);
-          sendCoordinate(coord);
+          const coord = normalize(data);
+          axios.post('/api/v1/coordinates/', coord);
         });
     });
 };
