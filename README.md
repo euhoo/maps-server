@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/euhoo/maps-server.svg?branch=master)](https://travis-ci.org/euhoo/maps-server)
+[![Maintainability](https://api.codeclimate.com/v1/badges/14f52627a97148fd7ebd/maintainability)](https://codeclimate.com/github/euhoo/maps-server/maintainability)  
+
 Тестовое задание.
 Используя любой из современных javascript-фреймворков реализовать следующее приложение.  
 На странице отобразить карту мира, на которой в течении минуты отобразить на карте 100 маркеров в случайных местах.  
