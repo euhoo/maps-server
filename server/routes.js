@@ -1,8 +1,8 @@
 import Router from 'koa-router';
-import coordinates from '../src/utils/coordinates';
+import coord from '../src/utils/coordinates';
 
 export default (router, io) => {
-  const defaultState = { coordinates };
+  const defaultState = { coordinates: coord };
 
   const state = { ...defaultState };
 
