@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/euhoo/maps-server.svg?branch=master)](https://travis-ci.org/euhoo/maps-server)
 [![Maintainability](https://api.codeclimate.com/v1/badges/14f52627a97148fd7ebd/maintainability)](https://codeclimate.com/github/euhoo/maps-server/maintainability)  
+https://maps-server-euhoo.herokuapp.com/  
 
 Тестовое задание.
 Используя любой из современных javascript-фреймворков реализовать следующее приложение.  
