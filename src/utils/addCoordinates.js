@@ -3,6 +3,7 @@ import { countries } from './constants';
 import getCities from './getCities';
 import getCoordinates from './getCoordinates';
 import getRandomCoordinates from './getRandomCoordinates';
+import { sendCoordinate } from './queries';
 
 const token = '36681ad836681ad836681ad8a536027c113366836681ad86ab815febfad14433ab16462';
 const cors = 'https://cors-anywhere.herokuapp.com/';
@@ -11,7 +12,7 @@ const index = getRandomFloat(1, countries.length - 1);
 const id = countries[index];
 const citiesUrl = `${cors}https://api.vk.com/method/database.getCities?access_token=${token}&v=5.5&need_all=1&count=15&country_id=${id}`;
 
-export default (arr) => {
+export default () => {
   axios.get(citiesUrl)
     .then((response) => {
       const cities = getCities(response);
@@ -21,7 +22,8 @@ export default (arr) => {
       });
       axios.all(requests)
         .then((data) => {
-          arr.push(...getCoordinates(data));
+          const coord = getCoordinates(data);
+          sendCoordinate(coord);
         });
     });
 };

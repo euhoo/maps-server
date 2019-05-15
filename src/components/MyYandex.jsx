@@ -1,4 +1,3 @@
-/*
 import React from 'react';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { uniqueId } from 'lodash';
@@ -16,4 +15,3 @@ export default class MyYandex extends React.Component {
     );
   }
 }
-*/

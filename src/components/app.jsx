@@ -1,19 +1,9 @@
 import React from 'react';
-// import MyGoogle from './MyGoogle';
-// import constants from '../utils/constants';
-// import getCoordinates from '../utils/getCoordinates';
-// import getRandomCoordinates from '../utils/getRandomCoordinates';
-// import MyYandex from './MyYandex';
-// import getCities from '../../src/utils/getCities';
-/*
-export const allMarkers = [];
+import _ from 'lodash';
+import MyGoogle from './MyGoogle';
+import constants from '../utils/constants';
+import MyYandex from './MyYandex';
 
-const addCoords = async () => {
-  const coords = await getCoordinates();
-  allMarkers.push(...coords);
-};
-addCoords();
-*/
 export default class App extends React.PureComponent {
   state = {
     markersList: [],
@@ -21,20 +11,22 @@ export default class App extends React.PureComponent {
     map: 'Yandex',
   }
 
-  /*
+
   componentDidMount() {
-    if (this.state.markersList.length >= constants.countOfMarkers) return;
-    const delay = constants.delay();
+    const { store } = this.props;
+    //console.log(store);
     const interval = setInterval(() => {
-      if (this.state.markersCount === constants.countOfMarkers - 1) clearInterval(interval);
-      if (allMarkers.length < constants.countOfMarkers - 5) addCoords();
-      const { markersCount } = this.state;
-      const current = allMarkers[markersCount] ? allMarkers[markersCount] : getRandomCoordinates();
-      const markersList = [...this.state.markersList, current];
-      this.setState({ markersList, markersCount: markersCount + 1 });
-    }, delay);
+      const { markersCount, markersList } = this.state;
+      const randomed = _.shuffle(store);
+      const coord = randomed[markersCount];
+      //console.log(this.state.markersList);
+      this.setState({ markersList: [...markersList, coord], markersCount: markersCount + 1 });
+      if (markersCount > constants.countOfMarkers) clearInterval(interval);
+
+    }, constants.delay());
   }
-  */
+
+
   changeMap = () => {
     const { map } = this.state;
     const newMap = map === 'Google' ? 'Yandex' : 'Google';
@@ -42,8 +34,6 @@ export default class App extends React.PureComponent {
   }
 
   render() {
-    const allCoords = this.props.store;
-    console.log(this.props);
     const { map } = this.state;
     const buttonStyle = {
       position: 'absolute',
@@ -67,10 +57,10 @@ export default class App extends React.PureComponent {
           {`${map} Maps`}
         </h2>
         {button}
-        {/*map === 'Google'
+        { map === 'Google'
           ? <MyGoogle positions={this.state.markersList} isMarkerShown />
           : <MyYandex positions={this.state.markersList} />
-    */}
+    }
       </>
     );
   }

@@ -14,16 +14,14 @@ import addCoordinates from './utils/addCoordinates';
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
-const data = [coordinates[0], coordinates[1]];
-queries.sendCoordinate(data);
+
 const store = gon.coordinates;
 
-const interval = setInterval(() => {
-  if (constants.countOfMarkers * 10 < store.length) clearInterval(interval);
-  addCoordinates(store);
-  console.log(store);
+const addingCoordinates = setInterval(() => {
+  addCoordinates();
+  if (constants.countOfMarkers < store.length) clearInterval(addingCoordinates);
 }, 1000);
 
 App(store);
 const socket = io();
-socket.on('newCoordinates', response => console.log(response));
+socket.on('newCoordinates', (data) => store.push(...data));
