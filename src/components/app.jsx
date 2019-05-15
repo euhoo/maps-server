@@ -11,20 +11,15 @@ export default class App extends React.PureComponent {
     map: 'Yandex',
   }
 
-
   componentDidMount() {
     const { store } = this.props;
-
     const interval = setInterval(() => {
-      console.log('in', store);
       const { markersCount, markersList } = this.state;
       if (markersCount + 1 >= countOfMarkers) clearInterval(interval);
       const randomed = shuffle(store);
-      const coord = randomed[markersCount];
-      this.setState({ markersList: [...markersList, coord], markersCount: markersCount + 1 });
+      this.setState({ markersList: [...markersList, randomed[0]], markersCount: markersCount + 1 });
     }, delay);
   }
-
 
   changeMap = () => {
     const { map } = this.state;

@@ -15,7 +15,7 @@ const store = gon.coordinates;
 
 const addingCoordinates = setInterval(() => {
   addCoordinates();
-  if (countOfMarkers < store.length) clearInterval(addingCoordinates);
+  if (countOfMarkers * 2 < store.length) clearInterval(addingCoordinates);
 }, 1000);
 
 App(store);

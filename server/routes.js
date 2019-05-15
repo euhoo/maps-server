@@ -1,30 +1,22 @@
 import Router from 'koa-router';
+import coordinates from '../src/utils/coordinates';
 
 export default (router, io) => {
-  const defaultState = {
-    coordinates: [
-      { lat: 39.302237, lng: 47.834813 },
-      { lat: 1.880592, lng: 172.991099 },
-      { lat: 13.466297, lng: 144.746925 },
-      { lat: 49.725608, lng: 84.274505 },
-      { lat: 39.666659, lng: 20.854704 },
-      { lat: -17.743084, lng: -43.130488 },
-      { lat: 49.198998, lng: -2.081082 },
-      { lat: 1.880592, lng: 172.991099 },
-    ],
-  };
+  const defaultState = { coordinates };
 
   const state = { ...defaultState };
 
   const apiRouter = new Router();
   apiRouter
     .get('/coordinates', (ctx) => {
+      // eslint-disable-next-line no-shadow
       const { coordinates } = state;
       ctx.body = coordinates;
       ctx.status = 301;
       io.emit('allCoordinates', coordinates);
     })
     .post('/coordinates', (ctx) => {
+      // eslint-disable-next-line no-shadow
       const coordinates = ctx.request.body;
       state.coordinates.push(...coordinates);
       ctx.status = 201;

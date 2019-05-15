@@ -1,5 +1,5 @@
 import { shuffle } from 'lodash';
-import { coordinates } from './constants';
+import coordinates from './coordinates';
 
 export default data => data.map((item) => {
   const part = item.data.response.GeoObjectCollection.featureMember[0];
