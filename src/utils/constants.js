@@ -1,10 +1,9 @@
 
-export const scale = 1;
+export const scale = 3;
 export const countOfMarkers = 100;
 export const timeToShowAllMarkers = 60000; // 1 minute
 export const delay = timeToShowAllMarkers / countOfMarkers;
 
-export const token = '36681ad836681ad836681ad8a536027c113366836681ad86ab815febfad14433ab16462';
 export const cors = 'https://cors-anywhere.herokuapp.com/';
 
 // eslint-disable-next-line max-len

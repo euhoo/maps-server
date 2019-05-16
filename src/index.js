@@ -5,6 +5,7 @@ import gon from 'gon';
 import { countOfMarkers } from './utils/constants';
 import App from './components/index';
 import addCoordinates from './utils/addCoordinates';
+import './styles/main.css';
 
 
 if (process.env.NODE_ENV !== 'production') {
